@@ -4,9 +4,14 @@ class FoodTextStyle{
     fontSize: 30,
     fontWeight: FontWeight.w600
   );
-  static var foodListMenuText = const TextStyle(
+  static var foodListMenuTextBlack = const TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w400,
-    color: Colors.white
+    color: Colors.black
+  );
+  static var foodListMenuTextWhite = const TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+      color: Colors.white
   );
 }

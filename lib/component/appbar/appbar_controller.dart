@@ -4,6 +4,14 @@ import 'general_appbar_state.dart';
 
 class AppbarController{
 
+  void deleteLeftButton(){
+    GeneralAppbarState.appbarState.leftButton = [];
+  }
+
+  void deleteRightButton(){
+    GeneralAppbarState.appbarState.rightButton = [];
+  }
+
   void changeLeftButton(AppbarButton appbarButton){
     GeneralAppbarState.appbarState.leftButton = [appbarButton];
   }
