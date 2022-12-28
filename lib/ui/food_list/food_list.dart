@@ -1,11 +1,12 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:food_menu/component/appbar/appbar_controller.dart';
 import 'package:food_menu/component/appbar/general_appbar_state.dart';
+import 'package:food_menu/component/foodcard/food.dart';
+import 'package:food_menu/component/foodcard/food_card.dart';
 import 'package:food_menu/res/color_resource.dart';
 import 'package:food_menu/style/text_style.dart';
+
 class FoodList extends StatefulWidget {
   const FoodList({Key? key}) : super(key: key);
 
@@ -14,13 +15,12 @@ class FoodList extends StatefulWidget {
 }
 
 class _FoodListState extends State<FoodList> {
-
   @override
   Widget build(BuildContext context) {
     double foodListLeftPadding = 20;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: ColorResource.yellow,
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -31,7 +31,7 @@ class _FoodListState extends State<FoodList> {
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   "Top Menu",
-                  style: FoodTextStyle.title,
+                  style: FoodTextStyle.titleWhite,
                 ),
               ),
               SizedBox(
@@ -40,78 +40,27 @@ class _FoodListState extends State<FoodList> {
                     itemCount: 4,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemBuilder: (context,index){
-                      if(index == 0){
+                    itemBuilder: (context, index) {
+                      if (index == 0) {
                         return Card(
-                          shadowColor: Colors.white,
                           elevation: 0,
-                          color: Colors.white,
+                          color: ColorResource.yellow,
                           child: SizedBox(
                             width: 20,
                             child: Container(),
                           ),
                         );
-                      }
-                      else{
-                        return Card(
-                          color: ColorResource.blue_color,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                          child: SizedBox(
-                            width: 250,
-                            child: Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Align(
-                                    alignment:Alignment.bottomRight,
-                                    child: IconButton(
-                                        onPressed: (){},
-                                        color: Colors.white,
-                                        icon: Icon(Icons.favorite_outline_sharp)
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 20.0),
-                                    child: Image.memory(
-                                        Base64Decoder().convert(ColorResource.image),
-                                        fit:BoxFit.fill
-                                    ),
-                                  ),
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          Text("Lahmacun",style: FoodTextStyle.foodListMenuTextWhite,),
-                                          Text("Old Traditional",style: FoodTextStyle.foodListMenuTextWhite,)
-                                        ],
-                                      )
-                                  ),
-                                  Spacer(),
-                                  Align(
-                                      alignment: Alignment.bottomCenter,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text("24\$",style: FoodTextStyle.foodListMenuTextWhite,),
-                                          IconButton(
-                                              onPressed: (){},
-                                              color: Colors.white,
-                                              icon: const Icon(Icons.arrow_forward)
-                                          )
-                                        ],
-                                      ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+                      } else {
+                        return FoodCard(
+                          food: Food(
+                              price: 24,
+                              name: "Lahmacun",
+                              color: ColorResource.blue_color,
+                              image: ColorResource.image,
+                              isLiked: true),
                         );
                       }
-                    }
-                ),
+                    }),
               ),
             ],
           ),
@@ -126,10 +75,13 @@ class _FoodListState extends State<FoodList> {
     changeLeftButton();
   }
 
-  void changeLeftButton(){
+  void changeLeftButton() {
     AppbarController().deleteLeftButton();
-    for(int index=0;index<GeneralAppbarState.defaultLeftButtons.length;index++){
-      AppbarController().addLeftButton(GeneralAppbarState.defaultLeftButtons[index]);
+    for (int index = 0;
+        index < GeneralAppbarState.defaultLeftButtons.length;
+        index++) {
+      AppbarController()
+          .addLeftButton(GeneralAppbarState.defaultLeftButtons[index]);
     }
   }
 }
